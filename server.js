@@ -1,8 +1,15 @@
-import { fastify } from 'fastify'
+import Fastify from 'fastify'
+import userRouter from './routes/UserRouter.js';
 
-const server = fastify()
+const server = Fastify({
+  logger: true
+})
 
-server.listen({
-    port: 3331,
-    listenTextResolver: (address) => { return `listening at ${address}`}
+server.register(userRouter)
+
+server.listen({ port: 3331 }, function (err, address) {
+  if (err) {
+    server.log.error(err)
+    process.exit(1)
+  }
 })
