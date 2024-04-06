@@ -1,22 +1,22 @@
-// import { fastify } from 'fastify';
 import { UserRepository } from '../repository/UserRepository.js';
+
+const userRepository = new UserRepository()
 
 async function userRouter(fastify, options) {
     fastify.post('/users', (request, reply) => {
         const user = request.body
-
-        const userRepository = new UserRepository()
     
         userRepository.create(user)
-    
-        // console.log(database.list())
     
         return reply.status(201).send()
     })
 
-    fastify.get('/', (request, reply) => {
-    
-        return {"text": "coe rapaziada"}
+    fastify.get('/users', (request, reply) => {
+        const { email } = request.query
+        
+        const user = userRepository.getByEmail(email)
+
+        return user
     })
 }
 
