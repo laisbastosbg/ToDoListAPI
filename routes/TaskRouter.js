@@ -19,6 +19,15 @@ async function taskRouter(fastify, options) {
 
         return reply.status(200).send()
     })
+
+    fastify.patch('/task/:id/description', (request, reply) => {
+        const { description } = request.body;
+        const taskID = request.params.id
+
+        taskRepository.updateDescription({ taskID, description })
+
+        return reply.status(200).send()
+    })
 }
 
 export default taskRouter;

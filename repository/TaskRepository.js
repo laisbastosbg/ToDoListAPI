@@ -11,9 +11,12 @@ export class TaskRepository {
     async updateStatus(task) {
         const { taskID, status }  = task
 
-        console.log(taskID)
-        console.log(status)
-
         await sql`UPDATE tasks SET status = ${status} WHERE id = ${taskID}`
+    }
+
+    async updateDescription(task) {
+        const { taskID, description }  = task
+
+        await sql`UPDATE tasks SET description = ${description} WHERE id = ${taskID}`
     }
 }
