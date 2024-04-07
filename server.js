@@ -9,7 +9,7 @@ const server = Fastify({
 server.register(userRouter)
 server.register(taskRouter)
 
-server.listen({ port: 3331 }, function (err, address) {
+server.listen({ port: process.env.PORT ?? 3331 }, function (err, address) {
   if (err) {
     server.log.error(err)
     process.exit(1)
