@@ -8,6 +8,16 @@ export class TaskRepository {
         await sql`INSERT INTO tasks (id, description, status, user_id) VALUES (DEFAULT, ${description}, false, ${userID})`
     }
 
+    async listUserTasks(userID) {
+
+        console.log("===============")
+        console.log(userID)
+        console.log("===============")
+        const tasks = await sql`SELECT * FROM tasks WHERE user_id = ${userID}`
+
+        return tasks
+    }
+
     async updateStatus(task) {
         const { taskID, status }  = task
 

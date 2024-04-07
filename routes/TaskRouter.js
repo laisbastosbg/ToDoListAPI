@@ -11,6 +11,14 @@ async function taskRouter(fastify, options) {
         return reply.status(201).send()
     })
 
+    fastify.get('/tasks/:userID', (request, reoly) => {
+        const userID = request.params.userID
+
+        const tasks = taskRepository.listUserTasks(userID)
+
+        return tasks
+    })
+
     fastify.patch('/task/:id/status', (request, reply) => {
         const { status } = request.body;
         const taskID = request.params.id
