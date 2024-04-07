@@ -9,10 +9,6 @@ export class TaskRepository {
     }
 
     async listUserTasks(userID) {
-
-        console.log("===============")
-        console.log(userID)
-        console.log("===============")
         const tasks = await sql`SELECT * FROM tasks WHERE user_id = ${userID}`
 
         return tasks
@@ -28,5 +24,9 @@ export class TaskRepository {
         const { taskID, description }  = task
 
         await sql`UPDATE tasks SET description = ${description} WHERE id = ${taskID}`
+    }
+
+    async deleteTask(id) {
+        await sql`DELETE FROM tasks WHERE id = ${id}`
     }
 }

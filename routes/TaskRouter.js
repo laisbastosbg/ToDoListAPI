@@ -19,7 +19,7 @@ async function taskRouter(fastify, options) {
         return tasks
     })
 
-    fastify.patch('/task/:id/status', (request, reply) => {
+    fastify.patch('/tasks/:id/status', (request, reply) => {
         const { status } = request.body;
         const taskID = request.params.id
 
@@ -28,11 +28,19 @@ async function taskRouter(fastify, options) {
         return reply.status(200).send()
     })
 
-    fastify.patch('/task/:id/description', (request, reply) => {
+    fastify.patch('/tasks/:id/description', (request, reply) => {
         const { description } = request.body;
         const taskID = request.params.id
 
         taskRepository.updateDescription({ taskID, description })
+
+        return reply.status(200).send()
+    })
+
+    fastify.delete('/tasks/:id', (request, reply) => {
+        const id = request.params.id
+
+        taskRepository.deleteTask(id)
 
         return reply.status(200).send()
     })
